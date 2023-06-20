@@ -15,4 +15,5 @@ router.route('/').get(authenticateToken,(req,res)=>{
 });
 router.route('/logout').get(authenticateToken,logout);
 
+
 module.exports= router;

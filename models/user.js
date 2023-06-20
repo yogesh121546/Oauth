@@ -7,8 +7,8 @@ const user = new mongoose.Schema({
     },
     pass_hash: {
         type: String,
-        required: true
+        default:null
     }
     //any other fields can be added here
 }) 
-module.exports = mongoose.model('USER',user);
+module.exports = mongoose.model('USER',user); 
