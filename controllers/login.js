@@ -11,10 +11,16 @@ const login = async_wrapper(async(req,res)=>{
     const {email,password} = req.body;
     const validEmail = await emailValidator.validate(email);
     const userFound = await USER.findOne({email:email});
-    if(!validEmail || !userFound){
+    if(!validEmail){
         throw new customError("invalid email address",StatusCodes.NOT_FOUND);
     }
-    const isvalidPassword = await bcrypt.compare(password,emailFound.pass_hash);
+    if(!userFound){
+        throw new customError("user not registered",StatusCodes.FORBIDDEN);
+    }
+    if(userFound.pass_hash==(null||undefined)){
+        throw new customError("user not registered",StatusCodes.FORBIDDEN);
+    }
+    const isvalidPassword = await bcrypt.compare(password,userFound.pass_hash);
     if(!isvalidPassword){
         throw new customError("invalid password",StatusCodes.FORBIDDEN);
     }
