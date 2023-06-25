@@ -38,7 +38,9 @@ const verify_otp = async_wrapper(async(req,res)=>{
 
     const {email,otp,password} = req.body;
     const Otp =  await OTP.findOne().sort({ field: 'asc', _id: -1 }).limit(1);
-
+    if(!Otp){
+        throw new customError(StatusCodes.BAD_REQUEST,StatusCodes.BAD_REQUEST);
+    }
     const validOtp = await bcrypt.compare(otp,Otp.otp_hash);
     if(!validOtp){
         throw new customError("invalid OTP",StatusCodes.FORBIDDEN);
