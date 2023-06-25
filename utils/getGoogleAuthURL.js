@@ -4,7 +4,7 @@ const getGoogleAuthURL = ()=>{
     const rootUrl = "https://accounts.google.com/o/oauth2/v2/auth";
 
     const options = {
-      redirect_uri: "http://localhost:3000/google/auth/callback",
+      redirect_uri: "https://oauth-lt6w.onrender.com/google/auth/callback",
       client_id: process.env.googleClientId,
       access_type: "offline",
       response_type: "code",
